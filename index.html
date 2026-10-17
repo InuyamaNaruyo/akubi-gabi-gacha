@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>あくびとがびのガチャ始めるってよ</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Montserrat:wght@700;900&family=Quicksand:wght@600;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fff0f6 0%, #f3f0ff 50%, #e6fcf5 100%);
+      --glass-bg: rgba(255, 255, 255, 0.82);
+      --glass-border: rgba(255, 255, 255, 0.95);
+      --primary-pink: #ff6b9d;
+      --primary-purple: #9775fa;
+      --primary-cyan: #3bc9db;
+      --text-main: #4a3f55;
+      --text-sub: #8c7f99;
+      --ssr-grad: linear-gradient(135deg, #ff6b9d 0%, #c084fc 35%, #60a5fa 70%, #34d399 100%);
+      --sr-grad: linear-gradient(135deg, #ffd43b 0%, #ffa94d 100%);
+      --r-grad: linear-gradient(135deg, #74c0fc 0%, #b197fc 100%);
+      --n-grad: linear-gradient(135deg, #dee2e6 0%, #adb5bd 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    .bg-deco {
+      position: fixed;
+      inset: 0;
+      pointer-events: none !important;
+      z-index: 0;
+      overflow: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(255, 107, 157, 0.12) 0%, transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(59, 201, 219, 0.12) 0%, transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(151, 117, 250, 0.12) 0%, transparent 30%);
+    }
+
+    /* ================= ヘッダー & ナビ ================= */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      width: 100%;
+      max-width: 960px;
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 20px rgba(151, 117, 250, 0.08);
+      border-radius: 0 0 24px 24px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+      font-size: 1.05rem;
+      background: linear-gradient(90deg, #ff5c8d, #845ef7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      background: rgba(243, 240, 255, 0.8);
+      padding: 4px;
+      border-radius: 999px;
+      border: 1px solid rgba(151, 117, 250, 0.2);
+    }
+
+    .nav-tab {
+      border: none;
+      background: transparent;
+      color: var(--text-sub);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-tab.active {
+      background: linear-gradient(135deg, #ff6b9d, #9775fa);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(255, 107, 157, 0.35);
+    }
+
+    /* ================= スタミナバー ================= */
+    .stamina-bar {
+      position: relative;
+      z-index: 10;
+      margin-top: 16px;
+      background: var(--glass-bg);
+      border: 2px solid var(--glass-border);
+      box-shadow: 0 8px 24px rgba(151, 117, 250, 0.1);
+      padding: 10px 20px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stamina-label {
+      font-size: 0.8rem;
+      font-weight: 900;
+      color: var(--primary-pink);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stamina-hearts {
+      display: flex;
+      gap: 6px;
+    }
+
+    .heart-slot {
+      width: 22px;
+      height: 22px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .heart-slot.filled {
+      transform: scale(1.1);
+      filter: drop-shadow(0 2px 6px rgba(255, 107, 157, 0.5));
+    }
+
+    .stamina-timer {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(151, 117, 250, 0.2);
+    }
+
+    .btn-debug-recover {
+      border: 1px solid rgba(151, 117, 250, 0.3);
+      background: #fff;
+      color: var(--primary-purple);
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .btn-debug-recover:hover {
+      background: #f3f0ff;
+    }
+
+    /* ================= メインコンテナ ================= */
+    .main-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 960px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .view-section {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+    .view-section.active {
+      display: flex;
+    }
+
+    .phase {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+    .phase.active {
+      display: flex;
+    }
+
+    /* ================= 1. パック待機画面 ================= */
+    .pack-stage {
+      margin: 18px 0 12px;
+      perspective: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pack-wrapper {
+      width: 240px;
+      height: 360px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(0 16px 32px rgba(151, 117, 250, 0.28));
+    }
+
+    .pack-wrapper:hover {
+      transform: translateY(-6px) rotate(-1deg);
+    }
+
+    .pack-top {
+      height: 58px;
+      background: linear-gradient(135deg, #ff85b3 0%, #b197fc 50%, #66d9e8 100%);
+      border-radius: 18px 18px 0 0;
+      border: 3px solid #fff;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s;
+    }
+
+    .pack-tear-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 1.5px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: pulseText 1.6s infinite;
+    }
+
+    .pack-body {
+      height: 302px;
+      background: linear-gradient(160deg, #ffffff 0%, #fff0f6 45%, #f3f0ff 100%);
+      border-radius: 0 0 22px 22px;
+      border: 3px solid #fff;
+      border-top: none;
+      box-shadow: inset 0 0 24px rgba(255, 107, 157, 0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pack-body::before {
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(from 0deg, transparent, rgba(255, 107, 157, 0.15), rgba(59, 201, 219, 0.15), transparent);
+      animation: spinSlow 10s linear infinite;
+      pointer-events: none;
+    }
+
+    .pack-emblem {
+      position: relative;
+      z-index: 2;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6b9d, #9775fa);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(255, 107, 157, 0.35);
+      margin-bottom: 14px;
+    }
+
+    .pack-title-box {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .pack-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--primary-purple);
+      margin-bottom: 6px;
+    }
+
+    .pack-main-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      line-height: 1.35;
+      background: linear-gradient(135deg, #ff4d8d, #7950f2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .pack-wrapper.ripping .pack-top {
+      transform: translate(90px, -70px) rotate(22deg) scale(0.9);
+      opacity: 0;
+    }
+    .pack-wrapper.ripping .pack-body {
+      animation: packBurst 0.6s 0.15s forwards;
+    }
+
+    @keyframes packBurst {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); filter: brightness(1.3); opacity: 0.9; }
+      100% { transform: scale(1.18); filter: blur(10px); opacity: 0; }
+    }
+
+    .draw-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-gacha {
+      min-width: 155px;
+      padding: 12px 22px;
+      border-radius: 18px;
+      border: 2px solid #fff;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+    }
+
+    .btn-gacha:active:not(:disabled) {
+      transform: scale(0.96);
+    }
+
+    .btn-gacha:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      filter: grayscale(0.8);
+    }
+
+    .btn-gacha-single {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-main);
+      box-shadow: 0 6px 18px rgba(151, 117, 250, 0.15);
+    }
+
+    .btn-gacha-max {
+      background: linear-gradient(135deg, #ff6b9d 0%, #9775fa 100%);
+      color: #fff;
+      box-shadow: 0 8px 22px rgba(255, 107, 157, 0.4);
+    }
+
+    .btn-gacha-main {
+      font-size: 1rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-gacha-cost {
+      font-size: 0.72rem;
+      font-weight: 700;
+      opacity: 0.88;
+    }
+
+    .btn-spec-open {
+      margin-top: 16px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(151, 117, 250, 0.35);
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-spec-open:hover {
+      background: #fff;
+      color: var(--primary-purple);
+      box-shadow: 0 4px 12px rgba(151, 117, 250, 0.15);
+    }
+
+    /* ================= 2. カードめくり画面 ================= */
+    .reveal-header {
+      width: 100%;
+      max-width: 340px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .reveal-counter {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--primary-purple);
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 14px;
+      border-radius: 999px;
+    }
+
+    .btn-skip {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(151, 117, 250, 0.3);
+      color: var(--text-main);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 900;
+      padding: 5px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .deck-Area {
+      position: relative;
+      width: 280px;
+      height: 390px;
+      perspective: 1200px;
+      margin: 8px 0;
+    }
+
+    .deck-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      cursor: pointer;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.38s ease;
+      box-shadow: 0 14px 32px rgba(74, 63, 85, 0.18);
+    }
+
+    .deck-card.swiped {
+      transform: translateX(130%) rotate(20deg) !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ================= カードデザイン & 限界突破 ================= */
+    .idol-card-inner {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      border: 3px solid #e9ecef;
+    }
+
+    .rarity-ssr .idol-card-inner {
+      border-color: transparent;
+      background: 
+        linear-gradient(#ffffff, #fff9fc) padding-box,
+        var(--ssr-grad) border-box;
+      border: 3px solid transparent;
+      box-shadow: 0 0 24px rgba(255, 107, 157, 0.35);
+    }
+
+    .rarity-sr .idol-card-inner {
+      border: 3px solid #fcc419;
+      background: linear-gradient(180deg, #ffffff 0%, #fff9db 100%);
+      box-shadow: 0 0 18px rgba(252, 196, 25, 0.3);
+    }
+
+    .rarity-r .idol-card-inner {
+      border: 3px solid #74c0fc;
+      background: linear-gradient(180deg, #ffffff 0%, #e7f5ff 100%);
+    }
+
+    .rarity-n .idol-card-inner {
+      border: 3px solid #dee2e6;
+      background: #ffffff;
+    }
+
+    .lb-1 .idol-card-inner,
+    .lb-2 .idol-card-inner {
+      box-shadow: 0 0 16px rgba(151, 117, 250, 0.25);
+    }
+
+    .lb-3 .idol-card-inner::after,
+    .lb-4 .idol-card-inner::after,
+    .lb-5 .idol-card-inner::after {
+      content: "";
+      position: absolute;
+      inset: -100%;
+      background: linear-gradient(
+        115deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.7) 48%,
+        rgba(255, 107, 157, 0.22) 50%,
+        rgba(59, 201, 219, 0.22) 52%,
+        transparent 65%
+      );
+      animation: holoShimmer 3.2s infinite;
+      pointer-events: none;
+    }
+
+    .lb-5 .idol-card-inner {
+      border: 3px solid transparent !important;
+      background: 
+        linear-gradient(165deg, #ffffff 0%, #fff0f6 50%, #f3f0ff 100%) padding-box,
+        var(--ssr-grad) border-box !important;
+      box-shadow: 0 0 26px rgba(255, 107, 157, 0.45), inset 0 0 15px rgba(151, 117, 250, 0.18) !important;
+    }
+
+    @keyframes holoShimmer {
+      0% { transform: translateX(-45%) translateY(-45%); }
+      100% { transform: translateX(45%) translateY(45%); }
+    }
+
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .rarity-pill {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 999px;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    .rarity-ssr .rarity-pill { background: var(--ssr-grad); }
+    .rarity-sr .rarity-pill { background: var(--sr-grad); }
+    .rarity-r .rarity-pill { background: var(--r-grad); }
+    .rarity-n .rarity-pill { background: var(--n-grad); color: #495057; }
+
+    .lb-status-badge {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(243, 240, 255, 0.9);
+      color: var(--primary-purple);
+      border: 1px solid rgba(151, 117, 250, 0.3);
+    }
+
+    .lb-status-badge.is-new {
+      background: linear-gradient(135deg, #ff6b9d, #ff8787);
+      color: #fff;
+      border: none;
+    }
+
+    .lb-status-badge.is-up {
+      background: linear-gradient(135deg, #ffd43b, #ff922b);
+      color: #fff;
+      border: none;
+    }
+
+    .card-center-body {
+      margin: auto 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-video-title {
+      font-weight: 800;
+      font-size: 1rem;
+      line-height: 1.45;
+      color: var(--text-main);
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-stars-row {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+    }
+
+    .card-bottom-row {
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      border-top: 1px dashed rgba(151, 117, 250, 0.2);
+      padding-top: 8px;
+    }
+
+    /* ================= 3. リザルト画面 ================= */
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 820px) {
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .grid-card-item {
+      height: 185px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .grid-card-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .grid-card-item .card-video-title {
+      font-size: 0.82rem;
+      -webkit-line-clamp: 3;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+      justify-content: center;
+    }
+
+    .btn-action {
+      padding: 11px 20px;
+      border-radius: 999px;
+      border: 2px solid #fff;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-action:active:not(:disabled) {
+      transform: scale(0.96);
+    }
+    .btn-action:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-retry {
+      background: linear-gradient(135deg, #ff6b9d, #9775fa);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(255, 107, 157, 0.35);
+    }
+
+    .btn-home {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-main);
+      box-shadow: 0 4px 14px rgba(74, 63, 85, 0.1);
+    }
+
+    .btn-x-share {
+      background: #000000;
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    /* ================= 4. 図鑑画面 ================= */
+    .dex-summary-card {
+      width: 100%;
+      background: var(--glass-bg);
+      border: 2px solid var(--glass-border);
+      border-radius: 22px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 24px rgba(151, 117, 250, 0.08);
+    }
+
+    .dex-progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 900;
+      font-size: 0.95rem;
+    }
+
+    .dex-progress-bar {
+      width: 100%;
+      height: 12px;
+      background: rgba(151, 117, 250, 0.15);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .dex-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff6b9d, #9775fa, #3bc9db);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    .dex-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      justify-content: center;
+    }
+
+    .filter-chip {
+      border: 1px solid rgba(151, 117, 250, 0.25);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .filter-chip.active {
+      background: var(--primary-purple);
+      color: #fff;
+      border-color: var(--primary-purple);
+    }
+
+    .dex-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      width: 100%;
+    }
+
+    @media (max-width: 820px) {
+      .dex-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .dex-card-locked {
+      height: 195px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 2px dashed rgba(151, 117, 250, 0.25);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-sub);
+      gap: 6px;
+    }
+
+    .flavor-preview {
+      font-size: 0.7rem;
+      color: var(--primary-purple);
+      background: rgba(243, 240, 255, 0.85);
+      padding: 3px 8px;
+      border-radius: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 4px;
+    }
+
+    .watched-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #0ca678;
+      background: #e6fcf5;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid #96f2d7;
+    }
+
+    /* ================= モーダル共通 ================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(45, 35, 60, 0.55);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none !important;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
+    }
+
+    .modal-backdrop.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto !important;
+    }
+
+    .modal-window {
+      background: #ffffff;
+      border-radius: 24px;
+      border: 3px solid #fff0f6;
+      max-width: 440px;
+      width: 100%;
+      padding: 20px;
+      box-shadow: 0 20px 45px rgba(45, 35, 60, 0.25);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-thumb-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #f1f3f5;
+      margin-bottom: 12px;
+      border: 2px solid #f3f0ff;
+    }
+
+    .modal-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .flavor-box {
+      margin-top: 12px;
+      background: #f8f6ff;
+      border: 1px solid rgba(151, 117, 250, 0.3);
+      border-radius: 14px;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .flavor-box label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary-purple);
+      margin-bottom: 6px;
+    }
+
+    .flavor-textarea {
+      width: 100%;
+      border: 1px solid rgba(151, 117, 250, 0.3);
+      border-radius: 10px;
+      padding: 8px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      resize: vertical;
+      min-height: 54px;
+      user-select: text;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 0.82rem;
+    }
+    .spec-table th, .spec-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid #f1f3f5;
+      text-align: left;
+    }
+
+    @keyframes pulseText {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-deco"></div>
+
+  <!-- ヘッダー -->
+  <header class="app-header">
+    <div class="brand-title">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L14.8 8.5L22 9.3L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.3L9.2 8.5L12 2Z" fill="url(#starGrad)"/>
+        <defs>
+          <linearGradient id="starGrad" x1="2" y1="2" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#ff6b9d"/>
+            <stop offset="1" stop-color="#9775fa"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>あくびとがびのガチャ始めるってよ</span>
+    </div>
+
+    <nav class="nav-tabs">
+      <button type="button" class="nav-tab active" id="tab-gacha" onclick="switchView('gacha')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9h-2V7h2v5zm0 4h-2v-2h2v2z"/></svg>
+        ガチャ
+      </button>
+      <button type="button" class="nav-tab" id="tab-dex" onclick="switchView('dex')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>
+        図鑑 <span id="nav-dex-badge">(0/47)</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- スタミナバー -->
+  <div class="stamina-bar">
+    <div class="stamina-label">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#ff6b9d"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      STAMINA
+    </div>
+    <div class="stamina-hearts" id="stamina-hearts"></div>
+    <div class="stamina-timer" id="stamina-timer-text">MAX (5/5)</div>
+    <button type="button" class="btn-debug-recover" onclick="debugRecoverStamina()">+全回復</button>
+  </div>
+
+  <!-- メインコンテナ -->
+  <main class="main-container">
+
+    <!-- ================= ガチャビュー ================= -->
+    <section id="view-gacha" class="view-section active">
+
+      <!-- フェーズ1: パック待機 -->
+      <div id="phase-pack" class="phase active">
+        <div class="pack-stage">
+          <div class="pack-wrapper" id="pack-el" onclick="triggerPackDefault()">
+            <div class="pack-top">
+              <div class="pack-tear-text">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5H7z"/></svg>
+                TAP TO OPEN
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5H7z"/></svg>
+              </div>
+            </div>
+            <div class="pack-body">
+              <div class="pack-emblem">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="#fff">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
+                </svg>
+              </div>
+              <div class="pack-title-box">
+                <div class="pack-sub">SPECIAL RADIO PACK</div>
+                <div class="pack-main-title">あくびとがびの<br>ガチャ始めるってよ</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="draw-actions">
+          <button type="button" class="btn-gacha btn-gacha-single" id="btn-draw-single" onclick="startGachaPull(1)">
+            <span class="btn-gacha-main">1回 引く</span>
+            <span class="btn-gacha-cost">消費: 1 pt</span>
+          </button>
+          <button type="button" class="btn-gacha btn-gacha-max" id="btn-draw-max" onclick="startGachaPull(staminaPoints)">
+            <span class="btn-gacha-main" id="btn-max-label">5連 引く</span>
+            <span class="btn-gacha-cost" id="btn-max-cost">消費: 5 pt</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn-spec-open" onclick="openSpecModal()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          提供割合・ガチャの仕様
+        </button>
+      </div>
+
+      <!-- フェーズ2: カードめくり -->
+      <div id="phase-reveal" class="phase">
+        <div class="reveal-header">
+          <div class="reveal-counter" id="reveal-counter-text">1 / 5</div>
+          <button type="button" class="btn-skip" onclick="skipReveal()">SKIP ≫</button>
+        </div>
+        <div class="deck-Area" id="deck-area" onclick="swipeNextCard()"></div>
+        <div style="font-size:0.8rem; color:var(--text-sub); margin-top:8px;">カードをタップしてめくる♪</div>
+      </div>
+
+      <!-- フェーズ3: ガチャ結果 -->
+      <div id="phase-result" class="phase">
+        <h2 id="result-heading" style="margin: 4px 0 8px; font-size: 1.25rem; font-weight: 900; color: var(--primary-purple);">ガチャ結果</h2>
+        <div class="result-grid" id="result-grid"></div>
+
+        <div class="result-actions">
+          <button type="button" class="btn-action btn-retry" id="btn-result-retry" onclick="retrySamePull()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+            <span id="retry-btn-text">もう一度引く</span>
+          </button>
+
+          <button type="button" class="btn-action btn-home" onclick="returnToHomePack()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            ホームへ戻る
+          </button>
+
+          <button type="button" class="btn-action btn-x-share" onclick="shareResultOnX()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Xで結果を共有
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================= 図鑑ビュー ================= -->
+    <section id="view-dex" class="view-section">
+      <div class="dex-summary-card">
+        <div class="dex-progress-top">
+          <span>コレクション達成率</span>
+          <span id="dex-rate-label">0 / 47 (0%)</span>
+        </div>
+        <div class="dex-progress-bar">
+          <div class="dex-progress-fill" id="dex-progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="dex-filters">
+        <button type="button" class="filter-chip active" data-filter="ALL" onclick="setDexFilter('ALL')">すべて</button>
+        <button type="button" class="filter-chip" data-filter="SSR" onclick="setDexFilter('SSR')">SSR</button>
+        <button type="button" class="filter-chip" data-filter="SR" onclick="setDexFilter('SR')">SR</button>
+        <button type="button" class="filter-chip" data-filter="R" onclick="setDexFilter('R')">R</button>
+        <button type="button" class="filter-chip" data-filter="N" onclick="setDexFilter('N')">N</button>
+        <button type="button" class="filter-chip" data-filter="OWNED" onclick="setDexFilter('OWNED')">所持のみ</button>
+        <button type="button" class="filter-chip" data-filter="WATCHED" onclick="setDexFilter('WATCHED')">視聴済♪</button>
+      </div>
+
+      <div class="dex-grid" id="dex-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- ================= 動画確認 & フレーバーテキストモーダル ================= -->
+  <div class="modal-backdrop" id="watch-modal" onclick="closeWatchModal()">
+    <div class="modal-window" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span class="rarity-pill" id="modal-rarity-pill" style="background:var(--primary-pink);">SSR</span>
+        <span id="modal-lb-stars" style="font-weight:900; color:#fcc419; font-size:0.9rem;"></span>
+      </div>
+
+      <div class="modal-thumb-wrap">
+        <img id="modal-thumb-img" src="" alt="YouTube Thumbnail">
+      </div>
+
+      <div id="modal-video-title" style="font-weight:900; font-size:0.98rem; line-height:1.45; text-align:left; margin-bottom:6px;"></div>
+      <div id="modal-video-meta" style="font-size:0.78rem; color:var(--text-sub); text-align:left;"></div>
+
+      <div class="flavor-box">
+        <label for="modal-flavor-input">💬 推しメモ / フレーバーテキスト（自由入力・自動保存）</label>
+        <textarea id="modal-flavor-input" class="flavor-textarea" maxlength="120" placeholder="この神回の好きなシーンや感想をメモしよう♪" oninput="saveFlavorText()"></textarea>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:16px;">
+        <button type="button" class="btn-action btn-home" style="flex:1; justify-content:center;" onclick="closeWatchModal()">閉じる</button>
+        <a id="modal-yt-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-action btn-retry" style="flex:1.4; justify-content:center; text-decoration:none;" onclick="markCurrentVideoWatched()">
+          YouTubeで観る♪
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 提供割合・仕様モーダル ================= -->
+  <div class="modal-backdrop" id="spec-modal" onclick="closeSpecModal()">
+    <div class="modal-window" onclick="event.stopPropagation()">
+      <h3 style="margin:0 0 10px; font-size:1.05rem; color:var(--primary-purple);">提供割合・ガチャ仕様</h3>
+      <p id="spec-modal-desc" style="font-size:0.78rem; color:var(--text-sub); line-height:1.5; margin:0 0 10px;">
+        全動画から均等確率で抽選されます。チャンネル内の再生数ランキングに応じてレアリティが設定されています。
+      </p>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>レア度</th>
+            <th>収録本数</th>
+            <th>提供割合</th>
+          </tr>
+        </thead>
+        <tbody id="spec-table-body">
+          <tr><td><strong>SSR</strong></td><td>1本</td><td>2.1%</td></tr>
+          <tr><td><strong>SR</strong></td><td>4本</td><td>8.5%</td></tr>
+          <tr><td><strong>R</strong></td><td>14本</td><td>29.8%</td></tr>
+          <tr><td><strong>N</strong></td><td>28本</td><td>59.6%</td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:0.76rem; color:var(--text-sub); line-height:1.55; background:#f8f6ff; padding:10px; border-radius:12px;">
+        ・<strong>スタミナ回復</strong>：30分で1ポイント回復（1時間で2pt / 最大5ptストック）<br>
+        ・<strong>限界突破</strong>：同じ動画を重複獲得すると最大★5までカードが進化します。
+      </div>
+      <div style="margin-top:14px; text-align:center;">
+        <button type="button" class="btn-action btn-home" style="width:100%; justify-content:center;" onclick="closeSpecModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====================================================
+    // 1. マスターデータ（外部JSON読み込み ＋ フォールバック）
+    // ====================================================
+    let VIDEO_MASTER = [
+      { "id": "EDDdzF-pmG8", "title": "【第一回】@あくびちゃん×がびのラジオ始まるってよ", "views": 2594, "rarity": "SSR", "publishedAt": "2024-11-30" },
+      { "id": "eymZrCsC7U0", "title": "【特別回】あくがびで遊んできましたVlog", "views": 2539, "rarity": "SR", "publishedAt": "2026-05-11" },
+      { "id": "k20NFlbqPHI", "title": "@あくびちゃん×がびのラジオ始まるってよプレ配信", "views": 1660, "rarity": "SR", "publishedAt": "2024-09-17" },
+      { "id": "saMbDkDPza0", "title": "@あくびちゃん×がびのラジオ始まるってよプレ配信その２", "views": 1298, "rarity": "SR", "publishedAt": "2024-10-15" },
+      { "id": "kOqEkPnC_dM", "title": "@あくびちゃん×がびのクリスマス配信するってよ🎄", "views": 1295, "rarity": "SR", "publishedAt": "2024-12-24" },
+      { "id": "s0-G3i92xFE", "title": "【第34回】ガム系女子＆するめ系女子", "views": 1261, "rarity": "R", "publishedAt": "2026-09-07" },
+      { "id": "NbltI8yl50Y", "title": "【第38回】ドパガキ化を自己完治させたがび", "views": 1252, "rarity": "R", "publishedAt": "2026-10-05" },
+      { "id": "QDePrVUaTeU", "title": "【第2回】天才ばぶ舌 VS ポンコツおとな舌", "views": 1004, "rarity": "R", "publishedAt": "2026-01-05" },
+      { "id": "vVCfgnJjfkE", "title": "【第8回】🍫恋愛きゅんマシマシスペシャル💌", "views": 913, "rarity": "R", "publishedAt": "2026-02-16" },
+      { "id": "RzbxbRuqLKM", "title": "【第33回】🎂がびちゃんがまたひとつ可愛くなったよ💞💞💞💞🎂", "views": 909, "rarity": "R", "publishedAt": "2026-08-31" },
+      { "id": "a_lgfIMra2c", "title": "【一年ぶり!?⁉⁉?‼  】お待たせ✨あくがび再開するってよ🎄", "views": 893, "rarity": "R", "publishedAt": "2025-12-23" },
+      { "id": "YB4_VoN6_tw", "title": "【第3回】あのね、目立ちたいのよ！外向型99％－ズ！", "views": 774, "rarity": "R", "publishedAt": "2026-01-12" },
+      { "id": "2QzdYqVtNC8", "title": "【第39回】誇りをもってドパガキしてるあくびちゃん ※途中でお知らせあります", "views": 770, "rarity": "R", "publishedAt": "2026-10-12" },
+      { "id": "EB7B7JbxnpE", "title": "【第9回】初お泊りシチュで妄想大爆発回❤", "views": 748, "rarity": "R", "publishedAt": "2026-02-23" },
+      { "id": "9a66tO7g61o", "title": "✨あくがびからクリスマスプレゼント✨", "views": 748, "rarity": "R", "publishedAt": "2024-12-20" },
+      { "id": "f4J816btjkQ", "title": "【第35回】私たちが一番性格悪い", "views": 732, "rarity": "R", "publishedAt": "2026-09-14" },
+      { "id": "mmdzLsUzzho", "title": "【第19回】リアイベ準備で大忙しがびちゃん お疲れさま♡", "views": 719, "rarity": "R", "publishedAt": "2026-05-04" },
+      { "id": "4sPFH0ou8yQ", "title": "【第4回】祝✨がびちゃん免許とれました✨", "views": 684, "rarity": "R", "publishedAt": "2026-01-19" },
+      { "id": "NutQUZsO54o", "title": "【第32回】うちのがびがほんますいません", "views": 676, "rarity": "R", "publishedAt": "2026-08-24" },
+      { "id": "A8P6w7RZy0E", "title": "【第7回】初のあくがび喧嘩回！？！？ ｶﾝｶﾝｶｰﾝ！", "views": 661, "rarity": "N", "publishedAt": "2026-02-09" },
+      { "id": "eLsP90OkzRk", "title": "ハムちゃんになって協力するゲーム「Hamsteria」やります🐹🐹※目標:喧嘩しない", "views": 624, "rarity": "N", "publishedAt": "2026-03-22" },
+      { "id": "UAtAi5SOtD8", "title": "【第18回】耐えられなくなった時が告白するとき。", "views": 610, "rarity": "N", "publishedAt": "2026-04-27" },
+      { "id": "MsLyYsqAq3I", "title": "【第5回】スクールカースト制度廃止宣言", "views": 610, "rarity": "N", "publishedAt": "2026-01-25" },
+      { "id": "DDLL7MVqgKs", "title": "【第16回】結局人間は夜寝るのが一番", "views": 609, "rarity": "N", "publishedAt": "2026-04-13" },
+      { "id": "9PDhwY_tq3g", "title": "【第6回】新企画スタート！恋愛シチュエーションゲーム", "views": 592, "rarity": "N", "publishedAt": "2026-02-02" },
+      { "id": "F8f476li5mg", "title": "【第36回】まじで雨やばすぎな話", "views": 585, "rarity": "N", "publishedAt": "2026-09-21" },
+      { "id": "RslpkVAGAnc", "title": "【第37回】もう嘘つきません、ごめんなさい！", "views": 555, "rarity": "N", "publishedAt": "2026-09-28" },
+      { "id": "7mQjBrSd_QA", "title": "【第15回】本気で恋愛しろ！！！！！！！！", "views": 553, "rarity": "N", "publishedAt": "2026-04-06" },
+      { "id": "9CDNvVKuBWs", "title": "【第29 回】浴衣は正しく着ろ！！！（大声）", "views": 550, "rarity": "N", "publishedAt": "2026-08-03" },
+      { "id": "DU7P4-PbvUI", "title": "【第11回】圧倒的分析派がびちゃんVS感覚で生きてるあくび", "views": 548, "rarity": "N", "publishedAt": "2026-03-09" },
+      { "id": "tTygGwSZEQ4", "title": "【第10回】恋人の前では〇〇なタイプ！？恋愛心理テスト📝祝10回放送！ありがとう～！！（ｂｙがあび&あくびまる）", "views": 548, "rarity": "N", "publishedAt": "2026-03-02" },
+      { "id": "oCXCnLkoB84", "title": "【第30回】怖い話で仲間割れしそうです", "views": 547, "rarity": "N", "publishedAt": "2026-08-10" },
+      { "id": "pi9aAH5Jtrg", "title": "【第17回】がび先生とあくびちゃん救済計画", "views": 544, "rarity": "N", "publishedAt": "2026-04-20" },
+      { "id": "kJuWuQghAHA", "title": "【第21回】あなたの朝は何時から？私は…", "views": 509, "rarity": "N", "publishedAt": "2026-06-01" },
+      { "id": "vnVXh5iKFF8", "title": "【第14回】迷える子羊のお悩みに答えちゃう回 新生活ver", "views": 500, "rarity": "N", "publishedAt": "2026-03-30" },
+      { "id": "poIolkja9UA", "title": "【第12回】寝起きネキとオールネキのぽわぽわバキバキトーク回", "views": 497, "rarity": "N", "publishedAt": "2026-03-16" },
+      { "id": "rAX_obRclX0", "title": "【第23回】デートの日は当日起きたら連絡するね", "views": 463, "rarity": "N", "publishedAt": "2026-06-15" },
+      { "id": "tWvyDqY_Miw", "title": "【第28回】がち不健康！あくびの飯＆酒事情", "views": 462, "rarity": "N", "publishedAt": "2026-07-27" },
+      { "id": "kgWuPeY5RRE", "title": "【第31回】最悪なフリートークの幕開け", "views": 443, "rarity": "N", "publishedAt": "2026-08-17" },
+      { "id": "tj9emrCuPq8", "title": "【第25回】全国の彼氏へ、前髪は整えてから写真をとれ", "views": 434, "rarity": "N", "publishedAt": "2026-07-06" },
+      { "id": "wc3CVxnv3r8", "title": "【第13回】締め切りのスリルで続いてるラジオ番組、あくがび", "views": 409, "rarity": "N", "publishedAt": "2026-03-23" },
+      { "id": "KlXUsCzSmxg", "title": "【第22回】お菓子ぺろぺろぺろ～", "views": 379, "rarity": "N", "publishedAt": "2026-06-08" },
+      { "id": "azsVAWn699s", "title": "【第27回】米ぬかチャレンジしてます", "views": 377, "rarity": "N", "publishedAt": "2026-07-20" },
+      { "id": "y-z4l9OSO98", "title": "【第24回】あくびちゃん、X乗っ取られ事件", "views": 359, "rarity": "N", "publishedAt": "2026-06-22" },
+      { "id": "KrNiAbwmbSk", "title": "【第20回】祝！あくがびラジオ20回迎えました～！！！！", "views": 347, "rarity": "N", "publishedAt": "2026-05-25" },
+      { "id": "ZtFddYehsvU", "title": "【第26回】シャーベッ党のシャーベットさん爆誕", "views": 325, "rarity": "N", "publishedAt": "2026-07-13" },
+      { "id": "NM1z89LGR3M", "title": "あくびちゃん×がびのラジオチャンネル のライブ配信", "views": 0, "rarity": "N", "publishedAt": "2024-09-02" }
+    ];
+
+    // ====================================================
+    // 2. 状態管理・ストレージ
+    // ====================================================
+    const STORAGE_KEY = "akubi_gabi_gacha_v3";
+    const MAX_STAMINA = 5;
+    const RECOVER_MS = 30 * 60 * 1000;
+    const MAX_LB = 5;
+
+    let staminaPoints = MAX_STAMINA;
+    let nextRecoverTime = null;
+    let userCollection = {};
+    let currentPullList = [];
+    let currentRevealIdx = 0;
+    let lastPullCount = 1;
+    let currentDexFilter = "ALL";
+    let activeModalVideoId = null;
+    let isAnimating = false;
+
+    function loadSavedState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          saveState();
+          return;
+        }
+        const parsed = JSON.parse(raw);
+        if (typeof parsed.staminaPoints === "number") {
+          staminaPoints = Math.min(MAX_STAMINA, Math.max(0, parsed.staminaPoints));
+        }
+        nextRecoverTime = typeof parsed.nextRecoverTime === "number" ? parsed.nextRecoverTime : null;
+        if (parsed.userCollection && typeof parsed.userCollection === "object") {
+          userCollection = parsed.userCollection;
+        }
+        recalcStaminaByElapsedTime();
+      } catch (e) {
+        console.warn("Storage fallback:", e);
+        staminaPoints = MAX_STAMINA;
+        nextRecoverTime = null;
+        userCollection = {};
+      }
+      saveState();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          staminaPoints,
+          nextRecoverTime,
+          userCollection
+        }));
+      } catch (e) {
+        console.warn("Save failed:", e);
+      }
+    }
+
+    function recalcStaminaByElapsedTime() {
+      const now = Date.now();
+      if (staminaPoints < MAX_STAMINA && nextRecoverTime) {
+        if (now >= nextRecoverTime) {
+          const passed = now - nextRecoverTime;
+          const gained = 1 + Math.floor(passed / RECOVER_MS);
+          staminaPoints = Math.min(MAX_STAMINA, staminaPoints + gained);
+          if (staminaPoints >= MAX_STAMINA) {
+            nextRecoverTime = null;
+          } else {
+            nextRecoverTime = now + (RECOVER_MS - (passed % RECOVER_MS));
+          }
+        }
+      } else if (staminaPoints < MAX_STAMINA && !nextRecoverTime) {
+        nextRecoverTime = now + RECOVER_MS;
+      }
+    }
+
+    // ====================================================
+    // 3. UIレンダリング
+    // ====================================================
+    function renderStaminaUI() {
+      const container = document.getElementById("stamina-hearts");
+      container.innerHTML = "";
+      for (let i = 0; i < MAX_STAMINA; i++) {
+        const filled = i < staminaPoints;
+        const div = document.createElement("div");
+        div.className = `heart-slot ${filled ? "filled" : ""}`;
+        div.innerHTML = filled
+          ? `<svg viewBox="0 0 24 24" width="22" height="22" fill="#ff6b9d"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`
+          : `<svg viewBox="0 0 24 24" width="22" height="22" fill="#e9ecef" stroke="#ced4da" stroke-width="1.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+        container.appendChild(div);
+      }
+
+      const btnSingle = document.getElementById("btn-draw-single");
+      const btnMax = document.getElementById("btn-draw-max");
+      const maxLabel = document.getElementById("btn-max-label");
+      const maxCost = document.getElementById("btn-max-cost");
+
+      btnSingle.disabled = staminaPoints < 1;
+      btnMax.disabled = staminaPoints < 1;
+
+      if (staminaPoints > 0) {
+        maxLabel.textContent = `${staminaPoints}連 引く`;
+        maxCost.textContent = `消費: ${staminaPoints} pt`;
+      } else {
+        maxLabel.textContent = `MAX連 引く`;
+        maxCost.textContent = `ポイント回復待ち`;
+      }
+
+      const retryBtn = document.getElementById("btn-result-retry");
+      const retryText = document.getElementById("retry-btn-text");
+      if (retryBtn && retryText) {
+        const pullable = Math.min(lastPullCount, staminaPoints);
+        retryBtn.disabled = staminaPoints < 1;
+        retryText.textContent = pullable > 0 ? `もう一度引く (${pullable}連)` : "スタミナ不足";
+      }
+
+      updateDexCounterBadge();
+      updateSpecModalDetails();
+    }
+
+    function updateDexCounterBadge() {
+      const ownedCount = Object.keys(userCollection).length;
+      const badge = document.getElementById("nav-dex-badge");
+      if (badge) badge.textContent = `(${ownedCount}/${VIDEO_MASTER.length})`;
+    }
+
+    function updateSpecModalDetails() {
+      const total = VIDEO_MASTER.length;
+      if (total === 0) return;
+
+      const counts = { SSR: 0, SR: 0, R: 0, N: 0 };
+      VIDEO_MASTER.forEach(v => {
+        counts[v.rarity] = (counts[v.rarity] || 0) + 1;
+      });
+
+      const body = document.getElementById("spec-table-body");
+      if (body) {
+        body.innerHTML = `
+          <tr><td><strong>SSR</strong></td><td>${counts.SSR}本</td><td>${((counts.SSR / total) * 100).toFixed(1)}%</td></tr>
+          <tr><td><strong>SR</strong></td><td>${counts.SR}本</td><td>${((counts.SR / total) * 100).toFixed(1)}%</td></tr>
+          <tr><td><strong>R</strong></td><td>${counts.R}本</td><td>${((counts.R / total) * 100).toFixed(1)}%</td></tr>
+          <tr><td><strong>N</strong></td><td>${counts.N}本</td><td>${((counts.N / total) * 100).toFixed(1)}%</td></tr>
+        `;
+      }
+      const desc = document.getElementById("spec-modal-desc");
+      if (desc) {
+        desc.textContent = `全${total}本の動画から均等確率で抽選されます。チャンネル内の再生数ランキングに応じてレアリティが自動設定されています。`;
+      }
+    }
+
+    function buildStarsSvg(lbLevel) {
+      let html = `<div class="card-stars-row">`;
+      for (let i = 1; i <= MAX_LB; i++) {
+        const active = i <= lbLevel;
+        const fill = active ? (lbLevel === 5 ? "#ff6b9d" : "#fcc419") : "#e9ecef";
+        html += `<svg width="14" height="14" viewBox="0 0 24 24" fill="${fill}"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+      }
+      html += `</div>`;
+      return html;
+    }
+
+    function buildStatusBadgeHtml(record) {
+      const starSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+      if (record.isNew) {
+        return `<span class="lb-status-badge is-new">✨ NEW</span>`;
+      }
+      if (record.prevLb < record.newLb) {
+        return `<span class="lb-status-badge is-up">${starSvg} ★${record.prevLb}→★${record.newLb}</span>`;
+      }
+      return `<span class="lb-status-badge">${starSvg} ★${record.newLb}</span>`;
+    }
+
+    // ====================================================
+    // 4. ガチャ抽選 & 開封進行
+    // ====================================================
+    function triggerPackDefault() {
+      if (staminaPoints >= 1) {
+        startGachaPull(staminaPoints);
+      }
+    }
+
+    function startGachaPull(count) {
+      if (isAnimating) return;
+      const pullCount = Math.min(count, staminaPoints);
+      if (pullCount < 1) return;
+
+      isAnimating = true;
+      lastPullCount = pullCount;
+
+      const wasFull = staminaPoints === MAX_STAMINA;
+      staminaPoints -= pullCount;
+      if (wasFull && staminaPoints < MAX_STAMINA) {
+        nextRecoverTime = Date.now() + RECOVER_MS;
+      }
+
+      currentPullList = [];
+      for (let i = 0; i < pullCount; i++) {
+        const picked = VIDEO_MASTER[Math.floor(Math.random() * VIDEO_MASTER.length)];
+        const existing = userCollection[picked.id];
+        let isNew = false;
+        let prevLb = 0;
+        let newLb = 0;
+
+        if (!existing) {
+          isNew = true;
+          userCollection[picked.id] = {
+            count: 1,
+            lb: 0,
+            watched: false,
+            flavor: ""
+          };
+        } else {
+          prevLb = existing.lb || 0;
+          existing.count = (existing.count || 1) + 1;
+          existing.lb = Math.min(MAX_LB, prevLb + 1);
+          newLb = existing.lb;
+        }
+
+        currentPullList.push({
+          video: picked,
+          isNew,
+          prevLb,
+          newLb
+        });
+      }
+
+      saveState();
+      renderStaminaUI();
+
+      const packEl = document.getElementById("pack-el");
+      packEl.classList.add("ripping");
+
+      setTimeout(() => {
+        showPhase("phase-reveal");
+        packEl.classList.remove("ripping");
+        setupRevealDeck();
+        isAnimating = false;
+      }, 650);
+    }
+
+    function setupRevealDeck() {
+      const deckArea = document.getElementById("deck-area");
+      deckArea.innerHTML = "";
+      currentRevealIdx = 0;
+
+      for (let i = currentPullList.length - 1; i >= 0; i--) {
+        const item = currentPullList[i];
+        const v = item.video;
+        const card = document.createElement("div");
+        card.className = `deck-card rarity-${v.rarity.toLowerCase()} lb-${item.newLb}`;
+        card.style.zIndex = (currentPullList.length - i).toString();
+
+        card.innerHTML = `
+          <div class="idol-card-inner">
+            <div class="card-top-row">
+              <span class="rarity-pill">${v.rarity}</span>
+              ${buildStatusBadgeHtml(item)}
+            </div>
+            <div class="card-center-body">
+              <div class="card-video-title">${escapeHtml(v.title)}</div>
+              ${buildStarsSvg(item.newLb)}
+            </div>
+            <div class="card-bottom-row">
+              <span>📅 ${v.publishedAt}</span>
+              <span>▶ ${v.views.toLocaleString()}回</span>
+            </div>
+          </div>
+        `;
+        deckArea.appendChild(card);
+      }
+      updateRevealCounter();
+    }
+
+    function swipeNextCard() {
+      const deckArea = document.getElementById("deck-area");
+      const remaining = deckArea.querySelectorAll(".deck-card:not(.swiped)");
+      if (remaining.length === 0) return;
+
+      const topCard = remaining[remaining.length - 1];
+      topCard.classList.add("swiped");
+      currentRevealIdx++;
+
+      if (currentRevealIdx >= currentPullList.length) {
+        setTimeout(() => {
+          renderResultScreen();
+        }, 380);
+      } else {
+        updateRevealCounter();
+      }
+    }
+
+    function skipReveal() {
+      renderResultScreen();
+    }
+
+    function updateRevealCounter() {
+      const el = document.getElementById("reveal-counter-text");
+      if (el) {
+        el.textContent = `${Math.min(currentRevealIdx + 1, currentPullList.length)} / ${currentPullList.length}`;
+      }
+    }
+
+    // ====================================================
+    // 5. リザルト画面・再抽選・ホーム戻る・X共有
+    // ====================================================
+    function renderResultScreen() {
+      showPhase("phase-result");
+      document.getElementById("result-heading").textContent = `${currentPullList.length}連 ガチャ結果`;
+
+      const grid = document.getElementById("result-grid");
+      grid.innerHTML = "";
+
+      currentPullList.forEach(item => {
+        const v = item.video;
+        const card = document.createElement("div");
+        card.className = `grid-card-item rarity-${v.rarity.toLowerCase()} lb-${item.newLb}`;
+        card.innerHTML = `
+          <div class="idol-card-inner">
+            <div class="card-top-row">
+              <span class="rarity-pill">${v.rarity}</span>
+              ${buildStatusBadgeHtml(item)}
+            </div>
+            <div class="card-center-body">
+              <div class="card-video-title">${escapeHtml(v.title)}</div>
+              ${buildStarsSvg(item.newLb)}
+            </div>
+            <div class="card-bottom-row">
+              <span>${v.publishedAt}</span>
+              <span>${v.views.toLocaleString()}回</span>
+            </div>
+          </div>
+        `;
+        card.onclick = () => openWatchModal(v.id);
+        grid.appendChild(card);
+      });
+
+      renderStaminaUI();
+    }
+
+    function retrySamePull() {
+      if (staminaPoints < 1) return;
+      const nextCount = Math.min(lastPullCount, staminaPoints);
+      showPhase("phase-pack");
+      startGachaPull(nextCount);
+    }
+
+    function returnToHomePack() {
+      showPhase("phase-pack");
+      renderStaminaUI();
+    }
+
+    function shareResultOnX() {
+      if (!currentPullList || currentPullList.length === 0) return;
+
+      const rarityRank = { "SSR": 4, "SR": 3, "R": 2, "N": 1 };
+      const sortedPulls = [...currentPullList].sort((a, b) => {
+        return (rarityRank[b.video.rarity] || 0) - (rarityRank[a.video.rarity] || 0);
+      });
+      const bestVideo = sortedPulls[0].video;
+      const youtubeUrl = `https://www.youtube.com/watch?v=${bestVideo.id}`;
+
+      const postText = `私が引いたのはこの動画♪\n${bestVideo.title}`;
+      const hashtags = "あくがびガチャ";
+
+      const params = new URLSearchParams({
+        text: postText,
+        url: youtubeUrl,
+        hashtags: hashtags
+      });
+
+      const intentUrl = `https://x.com/intent/post?${params.toString()}`;
+      window.open(intentUrl, "_blank", "noopener,noreferrer");
+    }
+
+    // ====================================================
+    // 6. 図鑑画面 & フレーバーテキスト保存
+    // ====================================================
+    function renderDexScreen() {
+      const ownedCount = Object.keys(userCollection).length;
+      const totalCount = VIDEO_MASTER.length;
+      const pct = totalCount > 0 ? Math.round((ownedCount / totalCount) * 100) : 0;
+
+      document.getElementById("dex-rate-label").textContent = `${ownedCount} / ${totalCount} (${pct}%)`;
+      document.getElementById("dex-progress-fill").style.width = `${pct}%`;
+
+      const dexGrid = document.getElementById("dex-grid");
+      dexGrid.innerHTML = "";
+
+      VIDEO_MASTER.forEach((v, idx) => {
+        const uData = userCollection[v.id];
+        const isOwned = !!uData;
+
+        if (currentDexFilter === "OWNED" && !isOwned) return;
+        if (currentDexFilter === "WATCHED" && (!isOwned || !uData.watched)) return;
+        if (["SSR", "SR", "R", "N"].includes(currentDexFilter) && v.rarity !== currentDexFilter) return;
+
+        if (!isOwned) {
+          const locked = document.createElement("div");
+          locked.className = "dex-card-locked";
+          locked.innerHTML = `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            <div style="font-size:0.78rem; font-weight:800;">No.${String(idx + 1).padStart(2, "0")} (${v.rarity})</div>
+            <div style="font-size:0.72rem;">未獲得</div>
+          `;
+          dexGrid.appendChild(locked);
+        } else {
+          const card = document.createElement("div");
+          card.className = `grid-card-item rarity-${v.rarity.toLowerCase()} lb-${uData.lb || 0}`;
+          card.style.height = "210px";
+
+          const flavorLine = uData.flavor && uData.flavor.trim()
+            ? `<div class="flavor-preview">💬 ${escapeHtml(uData.flavor.trim())}</div>`
+            : `<div class="flavor-preview" style="opacity:0.55;">💬 タップでメモを入力</div>`;
+
+          card.innerHTML = `
+            <div class="idol-card-inner">
+              <div class="card-top-row">
+                <span class="rarity-pill">${v.rarity}</span>
+                ${uData.watched ? `<span class="watched-tag">視聴済♪</span>` : `<span class="lb-status-badge">★${uData.lb || 0}</span>`}
+              </div>
+              <div class="card-center-body">
+                <div class="card-video-title">${escapeHtml(v.title)}</div>
+                ${buildStarsSvg(uData.lb || 0)}
+                ${flavorLine}
+              </div>
+              <div class="card-bottom-row">
+                <span>所持: ${uData.count}</span>
+                <span>${v.views.toLocaleString()}回</span>
+              </div>
+            </div>
+          `;
+          card.onclick = () => openWatchModal(v.id);
+          dexGrid.appendChild(card);
+        }
+      });
+    }
+
+    function setDexFilter(filter) {
+      currentDexFilter = filter;
+      document.querySelectorAll(".filter-chip").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-filter") === filter);
+      });
+      renderDexScreen();
+    }
+
+    // ====================================================
+    // 7. モーダル制御 & ユーティリティ
+    // ====================================================
+    function openWatchModal(videoId) {
+      const video = VIDEO_MASTER.find(v => v.id === videoId);
+      if (!video) return;
+
+      activeModalVideoId = videoId;
+      const uData = userCollection[videoId] || { lb: 0, flavor: "" };
+
+      document.getElementById("modal-rarity-pill").textContent = video.rarity;
+      document.getElementById("modal-lb-stars").textContent = "★".repeat(uData.lb || 0) + "☆".repeat(MAX_LB - (uData.lb || 0));
+      document.getElementById("modal-thumb-img").src = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
+      document.getElementById("modal-video-title").textContent = video.title;
+      document.getElementById("modal-video-meta").textContent = `公開日: ${video.publishedAt} / 再生数: ${video.views.toLocaleString()} 回`;
+      document.getElementById("modal-flavor-input").value = uData.flavor || "";
+      document.getElementById("modal-yt-link").href = `https://www.youtube.com/watch?v=${video.id}`;
+
+      document.getElementById("watch-modal").classList.add("is-open");
+    }
+
+    function closeWatchModal() {
+      document.getElementById("watch-modal").classList.remove("is-open");
+      activeModalVideoId = null;
+      if (document.getElementById("view-dex").classList.contains("active")) {
+        renderDexScreen();
+      }
+    }
+
+    function saveFlavorText() {
+      if (!activeModalVideoId) return;
+      const val = document.getElementById("modal-flavor-input").value;
+      if (!userCollection[activeModalVideoId]) {
+        userCollection[activeModalVideoId] = { count: 1, lb: 0, watched: false, flavor: val };
+      } else {
+        userCollection[activeModalVideoId].flavor = val;
+      }
+      saveState();
+    }
+
+    function markCurrentVideoWatched() {
+      if (!activeModalVideoId) return;
+      if (userCollection[activeModalVideoId]) {
+        userCollection[activeModalVideoId].watched = true;
+        saveState();
+        if (document.getElementById("view-dex").classList.contains("active")) {
+          renderDexScreen();
+        }
+      }
+    }
+
+    function openSpecModal() {
+      document.getElementById("spec-modal").classList.add("is-open");
+    }
+
+    function closeSpecModal() {
+      document.getElementById("spec-modal").classList.remove("is-open");
+    }
+
+    function switchView(viewName) {
+      document.getElementById("view-gacha").classList.toggle("active", viewName === "gacha");
+      document.getElementById("view-dex").classList.toggle("active", viewName === "dex");
+      document.getElementById("tab-gacha").classList.toggle("active", viewName === "gacha");
+      document.getElementById("tab-dex").classList.toggle("active", viewName === "dex");
+      if (viewName === "dex") {
+        renderDexScreen();
+      }
+    }
+
+    function showPhase(phaseId) {
+      ["phase-pack", "phase-reveal", "phase-result"].forEach(id => {
+        document.getElementById(id).classList.toggle("active", id === phaseId);
+      });
+    }
+
+    function debugRecoverStamina() {
+      staminaPoints = MAX_STAMINA;
+      nextRecoverTime = null;
+      saveState();
+      renderStaminaUI();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // スタミナタイマー監視
+    setInterval(() => {
+      const timerEl = document.getElementById("stamina-timer-text");
+      if (!timerEl) return;
+
+      if (staminaPoints >= MAX_STAMINA) {
+        timerEl.textContent = `MAX (${MAX_STAMINA}/${MAX_STAMINA})`;
+        return;
+      }
+
+      const now = Date.now();
+      if (nextRecoverTime && now >= nextRecoverTime) {
+        recalcStaminaByElapsedTime();
+        saveState();
+        renderStaminaUI();
+        return;
+      }
+
+      if (nextRecoverTime) {
+        const diff = Math.max(0, nextRecoverTime - now);
+        const m = Math.floor(diff / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        timerEl.textContent = `回復まで ${m}:${String(s).padStart(2, "0")} (${staminaPoints}/${MAX_STAMINA})`;
+      }
+    }, 1000);
+
+    // ====================================================
+    // 8. アプリ初期化（videos.json 非同期読み込み連動）
+    // ====================================================
+    async function initApp() {
+      try {
+        const res = await fetch(`videos.json?t=${Date.now()}`);
+        if (res.ok) {
+          const remoteData = await res.json();
+          if (Array.isArray(remoteData) && remoteData.length > 0) {
+            VIDEO_MASTER = remoteData;
+          }
+        }
+      } catch (err) {
+        console.warn("videos.json fetch fallback to internal master:", err);
+      }
+
+      loadSavedState();
+      renderStaminaUI();
+    }
+
+    initApp();
+  </script>
+</body>
+</html>
