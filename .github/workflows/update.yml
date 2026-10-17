@@ -4,7 +4,7 @@ on:
   schedule:
     # 毎日 日本時間 午前3:00 (UTC 18:00) に自動実行
     - cron: '0 18 * * *'
-  # GitHub上のボタンから手動でテスト実行可能
+  # 手動テスト実行ボタン
   workflow_dispatch:
 
 jobs:
@@ -17,14 +17,10 @@ jobs:
       - name: リポジトリのコードを取得
         uses: actions/checkout@v4
 
-      - name: Node.js を準備
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-
       - name: 最新の動画データを取得して videos.json を更新
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         run: node fetch_videos.js
 
       - name: 変更があれば自動コミット＆プッシュ
