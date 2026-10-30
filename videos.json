@@ -2,14 +2,14 @@
   {
     "id": "EDDdzF-pmG8",
     "title": "【第一回】@あくびちゃん×がびのラジオ始まるってよ",
-    "views": 2629,
+    "views": 2631,
     "rarity": "SSR",
     "publishedAt": "2024-11-30"
   },
   {
     "id": "eymZrCsC7U0",
     "title": "【特別回】あくがびで遊んできましたVlog",
-    "views": 2570,
+    "views": 2575,
     "rarity": "SR",
     "publishedAt": "2026-05-11"
   },
@@ -44,16 +44,23 @@
   {
     "id": "s0-G3i92xFE",
     "title": "【第34回】ガム系女子＆するめ系女子",
-    "views": 1287,
+    "views": 1288,
     "rarity": "R",
     "publishedAt": "2026-09-07"
   },
   {
     "id": "QDePrVUaTeU",
     "title": "【第2回】天才ばぶ舌 VS ポンコツおとな舌",
-    "views": 1021,
+    "views": 1022,
     "rarity": "R",
     "publishedAt": "2026-01-05"
+  },
+  {
+    "id": "RzbxbRuqLKM",
+    "title": "【第33回】🎂がびちゃんがまたひとつ可愛くなったよ💞💞💞💞🎂",
+    "views": 919,
+    "rarity": "R",
+    "publishedAt": "2026-08-31"
   },
   {
     "id": "vVCfgnJjfkE",
@@ -63,23 +70,16 @@
     "publishedAt": "2026-02-16"
   },
   {
-    "id": "RzbxbRuqLKM",
-    "title": "【第33回】🎂がびちゃんがまたひとつ可愛くなったよ💞💞💞💞🎂",
-    "views": 918,
-    "rarity": "R",
-    "publishedAt": "2026-08-31"
-  },
-  {
     "id": "a_lgfIMra2c",
     "title": "【一年ぶり!?⁉⁉?‼  】お待たせ✨あくがび再開するってよ🎄",
-    "views": 899,
+    "views": 900,
     "rarity": "R",
     "publishedAt": "2025-12-23"
   },
   {
     "id": "2QzdYqVtNC8",
     "title": "【第39回】誇りをもってドパガキしてるあくびちゃん　※途中でお知らせあります",
-    "views": 880,
+    "views": 883,
     "rarity": "R",
     "publishedAt": "2026-10-12"
   },
@@ -107,21 +107,21 @@
   {
     "id": "f4J816btjkQ",
     "title": "【第35回】私たちが一番性格悪い",
-    "views": 745,
+    "views": 748,
     "rarity": "R",
     "publishedAt": "2026-09-14"
   },
   {
     "id": "mmdzLsUzzho",
     "title": "【第19回】リアイベ準備で大忙しがびちゃん　お疲れさま♡",
-    "views": 720,
+    "views": 722,
     "rarity": "R",
     "publishedAt": "2026-05-04"
   },
   {
     "id": "HXr0Uzq7DfQ",
     "title": "【第40回】疲労年齢にがちで厳しいがび先生",
-    "views": 693,
+    "views": 695,
     "rarity": "R",
     "publishedAt": "2026-10-19"
   },
@@ -149,16 +149,23 @@
   {
     "id": "byAFZkxAyw8",
     "title": "協力して船をこぎこぎ🚢🚢🚢※目標:できなくても泣かない【Paddle Paddle Paddle】",
-    "views": 661,
+    "views": 665,
     "rarity": "N",
     "publishedAt": "2026-10-19"
   },
   {
     "id": "eLsP90OkzRk",
     "title": "ハムちゃんになって協力するゲーム「Hamsteria」やります🐹🐹※目標:喧嘩しない",
-    "views": 635,
+    "views": 636,
     "rarity": "N",
     "publishedAt": "2026-03-22"
+  },
+  {
+    "id": "MsLyYsqAq3I",
+    "title": "【第5回】スクールカースト制度廃止宣言",
+    "views": 612,
+    "rarity": "N",
+    "publishedAt": "2026-01-25"
   },
   {
     "id": "UAtAi5SOtD8",
@@ -166,13 +173,6 @@
     "views": 611,
     "rarity": "N",
     "publishedAt": "2026-04-27"
-  },
-  {
-    "id": "MsLyYsqAq3I",
-    "title": "【第5回】スクールカースト制度廃止宣言",
-    "views": 611,
-    "rarity": "N",
-    "publishedAt": "2026-01-25"
   },
   {
     "id": "DDLL7MVqgKs",
@@ -184,28 +184,35 @@
   {
     "id": "F8f476li5mg",
     "title": "【第36回】まじで雨やばすぎな話",
-    "views": 603,
+    "views": 604,
     "rarity": "N",
     "publishedAt": "2026-09-21"
   },
   {
     "id": "9PDhwY_tq3g",
     "title": "【第6回】新企画スタート！恋愛シチュエーションゲーム",
-    "views": 599,
+    "views": 600,
     "rarity": "N",
     "publishedAt": "2026-02-02"
   },
   {
+    "id": "T7BJL2fjHak",
+    "title": "【第41回】この人しか愛せねぇ…",
+    "views": 589,
+    "rarity": "N",
+    "publishedAt": "2026-10-26"
+  },
+  {
     "id": "RslpkVAGAnc",
     "title": "【第37回】もう嘘つきません、ごめんなさい！",
-    "views": 578,
+    "views": 579,
     "rarity": "N",
     "publishedAt": "2026-09-28"
   },
   {
     "id": "9CDNvVKuBWs",
     "title": "【第29 回】浴衣は正しく着ろ！！！（大声）",
-    "views": 565,
+    "views": 566,
     "rarity": "N",
     "publishedAt": "2026-08-03"
   },
@@ -219,7 +226,7 @@
   {
     "id": "oCXCnLkoB84",
     "title": "【第30回】怖い話で仲間割れしそうです",
-    "views": 554,
+    "views": 556,
     "rarity": "N",
     "publishedAt": "2026-08-10"
   },
@@ -245,13 +252,6 @@
     "publishedAt": "2026-04-20"
   },
   {
-    "id": "T7BJL2fjHak",
-    "title": "【第41回】この人しか愛せねぇ…",
-    "views": 533,
-    "rarity": "N",
-    "publishedAt": "2026-10-26"
-  },
-  {
     "id": "kJuWuQghAHA",
     "title": "【第21回】あなたの朝は何時から？私は…",
     "views": 510,
@@ -275,7 +275,7 @@
   {
     "id": "tWvyDqY_Miw",
     "title": "【第28回】がち不健康！あくびの飯＆酒事情",
-    "views": 478,
+    "views": 479,
     "rarity": "N",
     "publishedAt": "2026-07-27"
   },
@@ -289,7 +289,7 @@
   {
     "id": "kgWuPeY5RRE",
     "title": "【第31回】最悪なフリートークの幕開け",
-    "views": 449,
+    "views": 451,
     "rarity": "N",
     "publishedAt": "2026-08-17"
   },
@@ -324,21 +324,21 @@
   {
     "id": "y-z4l9OSO98",
     "title": "【第24回】あくびちゃん、X乗っ取られ事件",
-    "views": 366,
+    "views": 367,
     "rarity": "N",
     "publishedAt": "2026-06-22"
   },
   {
     "id": "KrNiAbwmbSk",
     "title": "【第20回】祝！あくがびラジオ20回迎えました～！！！！",
-    "views": 351,
+    "views": 353,
     "rarity": "N",
     "publishedAt": "2026-05-25"
   },
   {
     "id": "ZtFddYehsvU",
     "title": "【第26回】シャーベッ党のシャーベットさん爆誕",
-    "views": 340,
+    "views": 341,
     "rarity": "N",
     "publishedAt": "2026-07-13"
   },
