@@ -2,7 +2,7 @@
   {
     "id": "EDDdzF-pmG8",
     "title": "【第一回】@あくびちゃん×がびのラジオ始まるってよ",
-    "views": 2657,
+    "views": 2660,
     "rarity": "SSR",
     "publishedAt": "2024-11-30"
   },
@@ -23,7 +23,7 @@
   {
     "id": "NbltI8yl50Y",
     "title": "【第38回】ドパガキ化を自己完治させたがび",
-    "views": 1305,
+    "views": 1306,
     "rarity": "SR",
     "publishedAt": "2026-10-05"
   },
@@ -58,7 +58,7 @@
   {
     "id": "RzbxbRuqLKM",
     "title": "【第33回】🎂がびちゃんがまたひとつ可愛くなったよ💞💞💞💞🎂",
-    "views": 925,
+    "views": 928,
     "rarity": "R",
     "publishedAt": "2026-08-31"
   },
@@ -79,7 +79,7 @@
   {
     "id": "2QzdYqVtNC8",
     "title": "【第39回】誇りをもってドパガキしてるあくびちゃん　※途中でお知らせあります",
-    "views": 890,
+    "views": 891,
     "rarity": "R",
     "publishedAt": "2026-10-12"
   },
@@ -121,7 +121,7 @@
   {
     "id": "HXr0Uzq7DfQ",
     "title": "【第40回】疲労年齢にがちで厳しいがび先生",
-    "views": 718,
+    "views": 719,
     "rarity": "R",
     "publishedAt": "2026-10-19"
   },
@@ -135,9 +135,16 @@
   {
     "id": "NutQUZsO54o",
     "title": "【第32回】うちのがびがほんますいません",
-    "views": 685,
+    "views": 689,
     "rarity": "R",
     "publishedAt": "2026-08-24"
+  },
+  {
+    "id": "T7BJL2fjHak",
+    "title": "【第41回】この人しか愛せねぇ…",
+    "views": 677,
+    "rarity": "N",
+    "publishedAt": "2026-10-26"
   },
   {
     "id": "A8P6w7RZy0E",
@@ -145,13 +152,6 @@
     "views": 674,
     "rarity": "N",
     "publishedAt": "2026-02-09"
-  },
-  {
-    "id": "T7BJL2fjHak",
-    "title": "【第41回】この人しか愛せねぇ…",
-    "views": 672,
-    "rarity": "N",
-    "publishedAt": "2026-10-26"
   },
   {
     "id": "byAFZkxAyw8",
@@ -168,6 +168,13 @@
     "publishedAt": "2026-03-22"
   },
   {
+    "id": "F8f476li5mg",
+    "title": "【第36回】まじで雨やばすぎな話",
+    "views": 613,
+    "rarity": "N",
+    "publishedAt": "2026-09-21"
+  },
+  {
     "id": "MsLyYsqAq3I",
     "title": "【第5回】スクールカースト制度廃止宣言",
     "views": 613,
@@ -175,25 +182,18 @@
     "publishedAt": "2026-01-25"
   },
   {
+    "id": "DDLL7MVqgKs",
+    "title": "【第16回】結局人間は夜寝るのが一番",
+    "views": 612,
+    "rarity": "N",
+    "publishedAt": "2026-04-13"
+  },
+  {
     "id": "UAtAi5SOtD8",
     "title": "【第18回】耐えられなくなった時が告白するとき。",
     "views": 611,
     "rarity": "N",
     "publishedAt": "2026-04-27"
-  },
-  {
-    "id": "DDLL7MVqgKs",
-    "title": "【第16回】結局人間は夜寝るのが一番",
-    "views": 611,
-    "rarity": "N",
-    "publishedAt": "2026-04-13"
-  },
-  {
-    "id": "F8f476li5mg",
-    "title": "【第36回】まじで雨やばすぎな話",
-    "views": 610,
-    "rarity": "N",
-    "publishedAt": "2026-09-21"
   },
   {
     "id": "9PDhwY_tq3g",
@@ -205,7 +205,7 @@
   {
     "id": "RslpkVAGAnc",
     "title": "【第37回】もう嘘つきません、ごめんなさい！",
-    "views": 585,
+    "views": 586,
     "rarity": "N",
     "publishedAt": "2026-09-28"
   },
@@ -226,7 +226,7 @@
   {
     "id": "7mQjBrSd_QA",
     "title": "【第15回】本気で恋愛しろ！！！！！！！！",
-    "views": 560,
+    "views": 562,
     "rarity": "N",
     "publishedAt": "2026-04-06"
   },
@@ -247,14 +247,14 @@
   {
     "id": "pi9aAH5Jtrg",
     "title": "【第17回】がび先生とあくびちゃん救済計画",
-    "views": 549,
+    "views": 551,
     "rarity": "N",
     "publishedAt": "2026-04-20"
   },
   {
     "id": "vnVXh5iKFF8",
     "title": "【第14回】迷える子羊のお悩みに答えちゃう回 新生活ver",
-    "views": 513,
+    "views": 515,
     "rarity": "N",
     "publishedAt": "2026-03-30"
   },
@@ -303,7 +303,7 @@
   {
     "id": "wc3CVxnv3r8",
     "title": "【第13回】締め切りのスリルで続いてるラジオ番組、あくがび",
-    "views": 418,
+    "views": 419,
     "rarity": "N",
     "publishedAt": "2026-03-23"
   },
