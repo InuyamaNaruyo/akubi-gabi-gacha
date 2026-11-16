@@ -2,7 +2,7 @@
   {
     "id": "EDDdzF-pmG8",
     "title": "【第一回】@あくびちゃん×がびのラジオ始まるってよ",
-    "views": 2678,
+    "views": 2681,
     "rarity": "SSR",
     "publishedAt": "2024-11-30"
   },
@@ -23,9 +23,16 @@
   {
     "id": "NbltI8yl50Y",
     "title": "【第38回】ドパガキ化を自己完治させたがび",
-    "views": 1312,
+    "views": 1314,
     "rarity": "SR",
     "publishedAt": "2026-10-05"
+  },
+  {
+    "id": "s0-G3i92xFE",
+    "title": "【第34回】ガム系女子＆するめ系女子",
+    "views": 1298,
+    "rarity": "SR",
+    "publishedAt": "2026-09-07"
   },
   {
     "id": "saMbDkDPza0",
@@ -33,13 +40,6 @@
     "views": 1298,
     "rarity": "SR",
     "publishedAt": "2024-10-15"
-  },
-  {
-    "id": "s0-G3i92xFE",
-    "title": "【第34回】ガム系女子＆するめ系女子",
-    "views": 1297,
-    "rarity": "SR",
-    "publishedAt": "2026-09-07"
   },
   {
     "id": "kOqEkPnC_dM",
@@ -51,23 +51,30 @@
   {
     "id": "QDePrVUaTeU",
     "title": "【第2回】天才ばぶ舌 VS ポンコツおとな舌",
-    "views": 1033,
+    "views": 1035,
     "rarity": "R",
     "publishedAt": "2026-01-05"
   },
   {
     "id": "RzbxbRuqLKM",
     "title": "【第33回】🎂がびちゃんがまたひとつ可愛くなったよ💞💞💞💞🎂",
-    "views": 937,
+    "views": 939,
     "rarity": "R",
     "publishedAt": "2026-08-31"
   },
   {
     "id": "vVCfgnJjfkE",
     "title": "【第8回】🍫恋愛きゅんマシマシスペシャル💌",
-    "views": 923,
+    "views": 924,
     "rarity": "R",
     "publishedAt": "2026-02-16"
+  },
+  {
+    "id": "2QzdYqVtNC8",
+    "title": "【第39回】誇りをもってドパガキしてるあくびちゃん　※途中でお知らせあります",
+    "views": 905,
+    "rarity": "R",
+    "publishedAt": "2026-10-12"
   },
   {
     "id": "a_lgfIMra2c",
@@ -75,13 +82,6 @@
     "views": 902,
     "rarity": "R",
     "publishedAt": "2025-12-23"
-  },
-  {
-    "id": "2QzdYqVtNC8",
-    "title": "【第39回】誇りをもってドパガキしてるあくびちゃん　※途中でお知らせあります",
-    "views": 901,
-    "rarity": "R",
-    "publishedAt": "2026-10-12"
   },
   {
     "id": "YB4_VoN6_tw",
@@ -93,14 +93,14 @@
   {
     "id": "f4J816btjkQ",
     "title": "【第35回】私たちが一番性格悪い",
-    "views": 762,
+    "views": 763,
     "rarity": "R",
     "publishedAt": "2026-09-14"
   },
   {
     "id": "EB7B7JbxnpE",
     "title": "【第9回】初お泊りシチュで妄想大爆発回❤",
-    "views": 762,
+    "views": 763,
     "rarity": "R",
     "publishedAt": "2026-02-23"
   },
@@ -128,7 +128,7 @@
   {
     "id": "T7BJL2fjHak",
     "title": "【第41回】この人しか愛せねぇ…",
-    "views": 719,
+    "views": 723,
     "rarity": "R",
     "publishedAt": "2026-10-26"
   },
@@ -161,6 +161,13 @@
     "publishedAt": "2026-02-09"
   },
   {
+    "id": "zUbt6F8AaqU",
+    "title": "【第42回】超豪華全肯定よちよちコーナーがスタート！",
+    "views": 653,
+    "rarity": "N",
+    "publishedAt": "2026-11-09"
+  },
+  {
     "id": "eLsP90OkzRk",
     "title": "ハムちゃんになって協力するゲーム「Hamsteria」やります🐹🐹※目標:喧嘩しない",
     "views": 646,
@@ -168,16 +175,9 @@
     "publishedAt": "2026-03-22"
   },
   {
-    "id": "zUbt6F8AaqU",
-    "title": "【第42回】超豪華全肯定よちよちコーナーがスタート！",
-    "views": 627,
-    "rarity": "N",
-    "publishedAt": "2026-11-09"
-  },
-  {
     "id": "F8f476li5mg",
     "title": "【第36回】まじで雨やばすぎな話",
-    "views": 620,
+    "views": 622,
     "rarity": "N",
     "publishedAt": "2026-09-21"
   },
@@ -212,7 +212,7 @@
   {
     "id": "RslpkVAGAnc",
     "title": "【第37回】もう嘘つきません、ごめんなさい！",
-    "views": 593,
+    "views": 596,
     "rarity": "N",
     "publishedAt": "2026-09-28"
   },
@@ -238,18 +238,18 @@
     "publishedAt": "2026-08-10"
   },
   {
+    "id": "tTygGwSZEQ4",
+    "title": "【第10回】恋人の前では〇〇なタイプ！？恋愛心理テスト📝祝10回放送！ありがとう～！！（ｂｙがあび&あくびまる）",
+    "views": 561,
+    "rarity": "N",
+    "publishedAt": "2026-03-02"
+  },
+  {
     "id": "DU7P4-PbvUI",
     "title": "【第11回】圧倒的分析派がびちゃんVS感覚で生きてるあくび",
     "views": 558,
     "rarity": "N",
     "publishedAt": "2026-03-09"
-  },
-  {
-    "id": "tTygGwSZEQ4",
-    "title": "【第10回】恋人の前では〇〇なタイプ！？恋愛心理テスト📝祝10回放送！ありがとう～！！（ｂｙがあび&あくびまる）",
-    "views": 558,
-    "rarity": "N",
-    "publishedAt": "2026-03-02"
   },
   {
     "id": "pi9aAH5Jtrg",
@@ -275,7 +275,7 @@
   {
     "id": "poIolkja9UA",
     "title": "【第12回】寝起きネキとオールネキのぽわぽわバキバキトーク回",
-    "views": 507,
+    "views": 508,
     "rarity": "N",
     "publishedAt": "2026-03-16"
   },
@@ -289,7 +289,7 @@
   {
     "id": "kgWuPeY5RRE",
     "title": "【第31回】最悪なフリートークの幕開け",
-    "views": 468,
+    "views": 472,
     "rarity": "N",
     "publishedAt": "2026-08-17"
   },
@@ -317,7 +317,7 @@
   {
     "id": "azsVAWn699s",
     "title": "【第27回】米ぬかチャレンジしてます",
-    "views": 397,
+    "views": 398,
     "rarity": "N",
     "publishedAt": "2026-07-20"
   },
@@ -348,6 +348,13 @@
     "views": 343,
     "rarity": "N",
     "publishedAt": "2026-07-13"
+  },
+  {
+    "id": "loPAsUkWopk",
+    "title": "【第43回】何色のノイズ聞けばいいかわからない☆",
+    "views": 119,
+    "rarity": "N",
+    "publishedAt": "2026-11-16"
   },
   {
     "id": "NM1z89LGR3M",
